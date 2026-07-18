@@ -1,23 +1,688 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+/* =========================================================
+   CONFIGURACIÓN GENERAL
+========================================================= */
+
+:root {
+    --background: #080909;
+    --background-secondary: #0d0f0f;
+
+    --white: #f4f4f1;
+    --silver: #bebfbd;
+    --muted: #8b8e8d;
+
+    --emerald: #08745f;
+    --emerald-light: #0c9275;
+
+    --border: rgba(255, 255, 255, 0.20);
+
+    --page-padding: clamp(24px, 5vw, 80px);
 }
 
-body{
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    background:#0b0b0b;
+html {
+    scroll-behavior: smooth;
+}
 
-    color:white;
+body {
+    min-width: 320px;
 
-    font-family:Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--white);
 
-    display:flex;
+    font-family: "Manrope", Arial, sans-serif;
 
-    justify-content:center;
+    overflow-x: hidden;
+}
 
-    align-items:center;
+a {
+    color: inherit;
+}
 
-    height:100vh;
+img {
+    display: block;
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   PANTALLA DE INTRODUCCIÓN
+========================================================= */
+
+.intro {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #000000;
+
+    opacity: 1;
+    visibility: visible;
+
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease;
+}
+
+.intro-logo {
+    width: clamp(110px, 13vw, 200px);
+    max-height: 180px;
+
+    object-fit: contain;
+
+    opacity: 0;
+    transform: scale(0.92);
+
+    animation: introLogo 1.4s ease forwards;
+}
+
+.intro.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+@keyframes introLogo {
+    0% {
+        opacity: 0;
+        transform: scale(0.92);
+    }
+
+    45% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    75% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0.95;
+        transform: scale(1.02);
+    }
+}
+
+
+/* =========================================================
+   SITIO
+========================================================= */
+
+.site {
+    opacity: 0;
+    transform: translateY(12px);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+
+.site.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   NAVEGACIÓN
+========================================================= */
+
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+
+    width: 100%;
+    min-height: 100px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 24px var(--page-padding);
+}
+
+.navbar-logo {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+
+    text-decoration: none;
+}
+
+.navbar-logo img {
+    width: 100%;
+    max-height: 58px;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(0 0 8px rgba(255, 255, 255, 0.05));
+
+    transition:
+        opacity 0.3s ease,
+        filter 0.3s ease,
+        transform 0.3s ease;
+}
+
+.navbar-logo:hover img {
+    opacity: 0.92;
+
+    filter:
+        drop-shadow(0 0 10px rgba(255, 255, 255, 0.10));
+
+    transform: scale(1.025);
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    gap: clamp(24px, 4vw, 64px);
+}
+
+.navigation a {
+    position: relative;
+
+    color: var(--white);
+
+    font-size: 0.92rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+
+    text-decoration: none;
+
+    transition: color 0.3s ease;
+}
+
+.navigation a::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    bottom: -9px;
+
+    width: 100%;
+    height: 1px;
+
+    background: var(--emerald-light);
+
+    transform: scaleX(0);
+    transform-origin: right;
+
+    transition: transform 0.3s ease;
+}
+
+.navigation a:hover {
+    color: var(--silver);
+}
+
+.navigation a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+
+/* =========================================================
+   PORTADA
+========================================================= */
+
+.hero {
+    position: relative;
+    isolation: isolate;
+
+    min-height: 100vh;
+
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr);
+    align-items: center;
+
+    padding:
+        140px
+        var(--page-padding)
+        70px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            90deg,
+            #060707 0%,
+            #090a0a 50%,
+            #0d0f0f 100%
+        );
+}
+
+
+/* =========================================================
+   CONTENIDO IZQUIERDO
+========================================================= */
+
+.hero-content {
+    position: relative;
+    z-index: 5;
+
+    max-width: 760px;
+    margin-top: 35px;
+}
+
+.hero-name {
+    margin-bottom: -0.01em;
+
+    color: var(--white);
+
+    font-size: clamp(3rem, 5.6vw, 5.8rem);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: 0.25em;
+}
+
+.hero h1 {
+    color: var(--white);
+
+    font-size: clamp(3.35rem, 6.2vw, 6.5rem);
+    font-weight: 700;
+    line-height: 0.93;
+    letter-spacing: 0.150em;
+
+    text-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.35);
+}
+
+.hero-profession {
+    margin-top: 24px;
+
+    color: var(--silver);
+
+    font-size: clamp(0.78rem, 1.2vw, 1.05rem);
+    font-weight: 300;
+    letter-spacing: 0.46em;
+}
+
+
+/* =========================================================
+   BOTONES
+========================================================= */
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+
+    margin-top: 52px;
+}
+
+.button {
+    min-height: 58px;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 16px 32px;
+
+    border: 1px solid transparent;
+
+    color: var(--white);
+
+    font-size: 0.83rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.button:hover {
+    transform: translateY(-3px);
+}
+
+.button-outline {
+    border-color: var(--emerald);
+    background: rgba(0, 0, 0, 0.18);
+}
+
+.button-outline:hover {
+    border-color: var(--emerald-light);
+    background: rgba(8, 116, 95, 0.12);
+
+    box-shadow:
+        0 10px 28px rgba(8, 116, 95, 0.10);
+}
+
+.button-primary {
+    background: var(--emerald);
+    border-color: var(--emerald);
+}
+
+.button-primary:hover {
+    background: var(--emerald-light);
+    border-color: var(--emerald-light);
+
+    box-shadow:
+        0 14px 34px rgba(8, 116, 95, 0.20);
+}
+
+
+/* =========================================================
+   LOGOTIPO GRANDE DERECHO
+========================================================= */
+
+.hero-monogram {
+    position: relative;
+    z-index: 3;
+
+    height: min(72vh, 760px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding-left: 4vw;
+}
+
+.hero-monogram img {
+    width: min(100%, 670px);
+    max-height: 100%;
+
+    object-fit: contain;
+
+    opacity: 0.93;
+
+    filter:
+        brightness(1.08)
+        contrast(1.02)
+        drop-shadow(0 0 8px rgba(255, 255, 255, 0.10))
+        drop-shadow(0 0 24px rgba(255, 255, 255, 0.075))
+        drop-shadow(0 0 58px rgba(255, 255, 255, 0.055))
+        drop-shadow(0 22px 72px rgba(255, 255, 255, 0.045));
+
+    transform: scale(1.04);
+
+    transition:
+        opacity 0.65s ease,
+        filter 0.65s ease,
+        transform 0.65s ease;
+}
+
+.hero-monogram:hover img {
+    opacity: 0.98;
+
+    filter:
+        brightness(1.12)
+        contrast(1.03)
+        drop-shadow(0 0 10px rgba(255, 255, 255, 0.13))
+        drop-shadow(0 0 30px rgba(255, 255, 255, 0.095))
+        drop-shadow(0 0 72px rgba(255, 255, 255, 0.065))
+        drop-shadow(0 24px 82px rgba(255, 255, 255, 0.055));
+
+    transform: scale(1.055);
+}
+
+
+/* =========================================================
+   LUZ AMBIENTAL DETRÁS DEL LOGOTIPO
+========================================================= */
+
+.hero-background-glow {
+    position: absolute;
+    z-index: 1;
+
+    top: 50%;
+    right: -5%;
+
+    width: 52vw;
+    height: 52vw;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.070) 0%,
+            rgba(255, 255, 255, 0.034) 26%,
+            rgba(255, 255, 255, 0.012) 48%,
+            transparent 72%
+        );
+
+    filter: blur(10px);
+
+    transform: translateY(-50%);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   SECCIONES PROVISIONALES
+========================================================= */
+
+.placeholder-section {
+    min-height: 80vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 100px var(--page-padding);
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+
+    background: var(--background-secondary);
+}
+
+.placeholder-section:nth-of-type(even) {
+    background: var(--background);
+}
+
+.section-label {
+    margin-bottom: 22px;
+
+    color: var(--emerald-light);
+
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+}
+
+.placeholder-section h2 {
+    margin-bottom: 20px;
+
+    font-size: clamp(2.8rem, 6vw, 6rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+}
+
+.placeholder-section > p:last-child {
+    max-width: 700px;
+
+    color: var(--muted);
+
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .hero {
+        grid-template-columns: 1fr 0.75fr;
+    }
+
+    .hero-monogram {
+        height: 55vh;
+    }
+
+    .hero-monogram img {
+        opacity: 0.88;
+
+        filter:
+            brightness(1.06)
+            contrast(1.02)
+            drop-shadow(0 0 8px rgba(255, 255, 255, 0.08))
+            drop-shadow(0 0 26px rgba(255, 255, 255, 0.06))
+            drop-shadow(0 0 54px rgba(255, 255, 255, 0.04));
+    }
+
+}
+
+
+/* =========================================================
+   MÓVIL
+========================================================= */
+
+@media (max-width: 760px) {
+
+    .navbar {
+        min-height: 80px;
+
+        padding-top: 18px;
+        padding-bottom: 18px;
+    }
+
+    .navbar-logo {
+        width: 46px;
+        height: 46px;
+    }
+
+    .navbar-logo img {
+        max-height: 46px;
+    }
+
+    .navigation {
+        display: none;
+    }
+
+    .hero {
+        min-height: 100svh;
+
+        grid-template-columns: 1fr;
+
+        align-content: center;
+
+        padding-top: 120px;
+        padding-bottom: 60px;
+    }
+
+    .hero-content {
+        z-index: 5;
+    }
+
+    .hero-name {
+        font-size: clamp(3.5rem, 16vw, 5.3rem);
+    }
+
+    .hero h1 {
+        font-size: clamp(3.9rem, 17vw, 5.8rem);
+    }
+
+    .hero-profession {
+        font-size: 0.72rem;
+        line-height: 1.7;
+        letter-spacing: 0.32em;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+
+        margin-top: 42px;
+    }
+
+    .button {
+        width: 100%;
+    }
+
+    .hero-monogram {
+        position: absolute;
+        z-index: 2;
+
+        top: 50%;
+        right: -28%;
+
+        width: 85%;
+        height: 70%;
+
+        padding-left: 0;
+
+        opacity: 0.15;
+
+        transform: translateY(-50%);
+    }
+
+    .hero-monogram img {
+        opacity: 0.92;
+
+        filter:
+            brightness(1.08)
+            contrast(1.02)
+            drop-shadow(0 0 10px rgba(255, 255, 255, 0.06))
+            drop-shadow(0 0 34px rgba(255, 255, 255, 0.045));
+
+        transform: scale(1);
+    }
+
+    .hero-monogram:hover img {
+        opacity: 0.92;
+
+        filter:
+            brightness(1.08)
+            contrast(1.02)
+            drop-shadow(0 0 10px rgba(255, 255, 255, 0.06))
+            drop-shadow(0 0 34px rgba(255, 255, 255, 0.045));
+
+        transform: scale(1);
+    }
+
+    .hero-background-glow {
+        right: -45%;
+
+        width: 110vw;
+        height: 110vw;
+
+        filter: blur(12px);
+    }
+
+}
+
+
+/* =========================================================
+   ACCESIBILIDAD: REDUCIR MOVIMIENTO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 
 }
