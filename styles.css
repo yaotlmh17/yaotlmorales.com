@@ -1373,12 +1373,12 @@ IPHONE / TELÉFONO VERTICAL
         min-height: 100svh;
 
         display: flex;
-        align-items: center;
+        align-items: stretch;
 
         padding:
             120px
             var(--page-padding)
-            70px;
+            32px;
 
         overflow: hidden;
     }
@@ -1388,10 +1388,16 @@ IPHONE / TELÉFONO VERTICAL
         position: relative;
         z-index: 3;
 
+        display: flex;
+        flex-direction: column;
+
         width: 100%;
         max-width: none;
+        min-height: calc(100svh - 152px);
 
         margin: 0;
+
+        padding-top: 22vh;
     }
 
 
@@ -1445,26 +1451,25 @@ IPHONE / TELÉFONO VERTICAL
         display: grid;
         grid-template-columns: 1fr;
 
-        gap: 14px;
+        gap: 12px;
 
         width: 100%;
 
-        margin-top: 38px;
+        margin-top: auto;
     }
 
 
     .button {
         width: 100%;
-
-        min-height: 56px;
+        min-height: 52px;
 
         display: flex;
         align-items: center;
         justify-content: center;
 
-        padding: 16px 18px;
+        padding: 14px 18px;
 
-        font-size: 0.75rem;
+        font-size: 0.72rem;
 
         letter-spacing: 0.12em;
     }
@@ -1473,7 +1478,7 @@ IPHONE / TELÉFONO VERTICAL
     .hero-monogram {
         position: absolute;
 
-        top: 38%;
+        top: 44%;
         right: -5%;
 
         z-index: 1;
@@ -1507,6 +1512,13 @@ IPHONE / TELÉFONO VERTICAL
         height: 105vw;
 
         opacity: 0.38;
+    }
+
+    .hero-name,
+    .hero h1,
+    .hero-profession {
+        position: relative;
+        z-index: 3;
     }
 
 
